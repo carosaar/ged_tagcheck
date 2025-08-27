@@ -1,0 +1,7 @@
+Datensatz-Typ,Datensatz-ID,Fehler
+INDI,@I2@,BIRT kommt mehrfach vor (2).
+INDI,@I3@,Mehr als ein untypisierter NAME-Tag (2).
+INDI,@I5@,BIRT kommt mehrfach vor (2).
+FAM,@F1@,Mindestens ein WIFE- oder ein HUSB-Tag muss vorhanden sein.
+FAM,@F2@,Es gibt 3 MARR-Tags – maximal 2 erlaubt.
+FAM,@F3@,Es gibt mehr als einen HUSB-Tag (2).
