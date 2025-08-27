@@ -4,8 +4,7 @@
 """
 GEDCOM‑Syntax‑Checker
 
-Prüft INDI‑ und FAM‑Datensätze in einer UTF‑8‑kodierten GEDCOM‑Datei auf die
-spezifischen Regeln und erzeugt eine deutschsprachige CSV‑Protokolldatei.
+Prüft INDI‑ und FAM‑Datensätze in einer UTF‑8‑kodierten GEDCOM‑Datei auf die spezifischen Regeln und erzeugt eine deutschsprachige CSV‑Protokolldatei.
 Beispielaufruf:
 python ged_tagcheck.py meinefamilie.ged
 """
@@ -137,11 +136,16 @@ def validate_family(fam_node: Node):
 
 def main(argv):
     if len(argv) != 2:
-        print(f"Aufruf: {argv[0]} <gedcom_datei>", file=sys.stderr)
+        print("Aufruf: python ged_tagcheck.py <gedcom_datei>", file=sys.stderr)
+        print("\nGEDCOM-Syntax-Checker prüft INDI- und FAM-Datensätze einer GEDCOM-Datei nach grundlegenden Struktur- und Tag-Regeln. "
+              "Gefundene Fehler werden als deutschsprachige CSV-Datei ausgegeben.", file=sys.stderr)
         sys.exit(1)
     ged_path = Path(argv[1])
     if not ged_path.is_file():
         print(f"Datei nicht gefunden: {ged_path}", file=sys.stderr)
+        print("Aufruf: python ged_tagcheck.py <gedcom_datei>", file=sys.stderr)
+        print("\nGEDCOM-Syntax-Checker prüft INDI- und FAM-Datensätze einer GEDCOM-Datei nach grundlegenden Struktur- und Tag-Regeln. "
+              "Gefundene Fehler werden als deutschsprachige CSV-Datei ausgegeben.", file=sys.stderr)
         sys.exit(1)
     roots = parse_gedcom(ged_path)
     csv_name = f"{ged_path.stem}_syntaxcheck.csv"
@@ -151,7 +155,9 @@ def main(argv):
     total_ind = total_fam = 0
     for node in roots:
         rec_type = node.value  # "INDI" oder "FAM"
-        rec_id = node.tag      # z.B. "@I1@"
+        rec_id = node.tag      # z.B. "@I1@" oder "@F1@"
+        # Entferne @-Zeichen in der Protokolldatei
+        rec_id_clean = rec_id.replace("@", "")
         if rec_type == "INDI":
             total_ind += 1
             errs = validate_individual(node)
@@ -161,7 +167,7 @@ def main(argv):
         else:
             continue
         for e in errs:
-            error_rows.append((rec_type, rec_id, e))
+            error_rows.append((rec_type, rec_id_clean, e))
         total_errors += len(errs)
     with csv_path.open("w", newline="", encoding="utf-8") as fp:
         writer = csv.writer(fp)
