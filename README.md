@@ -121,8 +121,3 @@ Eine Beispiel-GEDCOM-Datei und das zugehörige Syntaxcheck-Ergebnis finden sich 
 
 **Projekt von [Dieter Eckstein]**  
 Saarbrücken, 2025
-
----
-
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/382023/d647e623-e825-428c-8363-6ca5057ee4ff/ged_tagcheck.py)
-[2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/382023/d28719d9-8158-44e4-bbd5-a6235b7d6bc9/gedcom_test.ged)
